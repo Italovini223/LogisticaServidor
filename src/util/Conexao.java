@@ -8,9 +8,9 @@ public class Conexao {
     public void conectar(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:/sdnoturno";
-            String usuario = "root";
-            String senha = "root";
+            String url = "tcp://0.tcp.sa.ngrok.io:12189/sistemasdistribuidoslogistica";
+            String usuario = "admin";
+            String senha = "admin";
             conector = DriverManager.getConnection(url, usuario, senha);
         }catch(ClassNotFoundException e){
             System.out.println("Erro no Driver: "+ e.getMessage());
