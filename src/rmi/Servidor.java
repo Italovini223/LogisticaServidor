@@ -23,7 +23,7 @@ import controllers.CaminhoesController;
 public class Servidor {
     public static void main(String[] args) {
         try{
-            Registry conexao = LocateRegistry.createRegistry(1100);
+            Registry conexao = LocateRegistry.createRegistry(3333);
             System.out.println("Servidor Iniciado!");
 
             InterfaceProdutos servicoProdutos = new ProdutosController();
@@ -41,6 +41,8 @@ public class Servidor {
             conexao.bind("entregas", servicoEntregas);
             conexao.bind("motoristas", servicoMotoristas);
             conexao.bind("caminhoes", servicoCaminhoes);
+
+            System.out.println("Serviços registrados e prontos para uso na porta 3333.");
             
         }catch(RemoteException e){
             System.out.println("Erro na criação do serviço: "+ e.getMessage());
