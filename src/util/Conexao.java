@@ -2,10 +2,7 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-/**
- *
- * @author Cris
- */
+
 public class Conexao {
     public Connection conector;
     public void conectar(){
