@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import util.Conexao;
 import model.EntregasModel;
+import interfaces.InterfaceEntregas;
 
 public class EntregasController extends UnicastRemoteObject implements InterfaceEntregas{
   public EntregasController()throws RemoteException{}
@@ -128,6 +129,60 @@ public class EntregasController extends UnicastRemoteObject implements Interface
       
     }catch(SQLException e){
       System.out.println("Erro ao listar: " + e.getMessage());
+    }
+    c.desconectar();
+    return retorno;
+  }
+
+  @Override
+  public ArrayList<model.EntregasModel> listarPorMotorista(int idMotorista) throws RemoteException {
+    ArrayList<EntregasModel> retorno = new ArrayList<>();
+    Conexao c = new Conexao();
+    c.conectar();
+    String sql = "SELECT * FROM entregas WHERE id_motorista = ?";
+    try{
+      PreparedStatement sentenca = c.conector.prepareStatement(sql);
+      sentenca.setInt(1, idMotorista);
+      ResultSet rs = sentenca.executeQuery();
+      while(rs.next()){
+        EntregasModel entrega = new EntregasModel();
+        entrega.setIdEntrega(rs.getInt("id"));
+        entrega.setIdMotorista(rs.getInt("id_motorista"));
+        entrega.setIdCaminhao(rs.getInt("id_caminhao"));
+        entrega.setStatus(rs.getString("status"));
+        entrega.setCreatedAt(rs.getTimestamp("created_at"));
+        entrega.setUpdatedAt(rs.getTimestamp("updated_at"));
+        retorno.add(entrega);
+      }
+    }catch(SQLException e){
+      System.out.println("Erro ao listar por motorista: " + e.getMessage());
+    }
+    c.desconectar();
+    return retorno;
+  }
+
+  @Override
+  public ArrayList<model.EntregasModel> listarPorCaminhao(int idCaminhao) throws RemoteException {
+    ArrayList<EntregasModel> retorno = new ArrayList<>();
+    Conexao c = new Conexao();
+    c.conectar();
+    String sql = "SELECT * FROM entregas WHERE id_caminhao = ?";
+    try{
+      PreparedStatement sentenca = c.conector.prepareStatement(sql);
+      sentenca.setInt(1, idCaminhao);
+      ResultSet rs = sentenca.executeQuery();
+      while(rs.next()){
+        EntregasModel entrega = new EntregasModel();
+        entrega.setIdEntrega(rs.getInt("id"));
+        entrega.setIdMotorista(rs.getInt("id_motorista"));
+        entrega.setIdCaminhao(rs.getInt("id_caminhao"));
+        entrega.setStatus(rs.getString("status"));
+        entrega.setCreatedAt(rs.getTimestamp("created_at"));
+        entrega.setUpdatedAt(rs.getTimestamp("updated_at"));
+        retorno.add(entrega);
+      }
+    }catch(SQLException e){
+      System.out.println("Erro ao listar por caminhao: " + e.getMessage()); 
     }
     c.desconectar();
     return retorno;

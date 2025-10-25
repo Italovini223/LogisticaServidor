@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import model.ClientesModel;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import util.Conexao;
+import interfaces.InterfaceClientes;
 
 public class ClientesController extends UnicastRemoteObject implements InterfaceClientes{
   public ClientesController()throws RemoteException{}

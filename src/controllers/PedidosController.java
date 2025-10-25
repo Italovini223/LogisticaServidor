@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import model.PedidosModel;
@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import util.Conexao;
+import interfaces.InterfacePedidos;
 
 public class PedidosController extends UnicastRemoteObject implements InterfacePedidos {
-  PedidosController() throws RemoteException {}
+  public PedidosController() throws RemoteException {}
 
   @Override
   public boolean inserir(PedidosModel pedido) throws RemoteException {
@@ -133,6 +134,64 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
       }
     } catch(SQLException e){
       System.out.println("Erro ao listar: " + e.getMessage());
+    }
+    c.desconectar();
+    return lista;
+  }
+
+  @Override
+  public ArrayList<PedidosModel> listarPorEntrega(int idEntrega) throws RemoteException {
+    ArrayList<PedidosModel> lista = new ArrayList<>();
+    Conexao c = new Conexao();
+    c.conectar();
+    String sql = "SELECT * FROM pedidos WHERE id_entrega = ?";
+    try{
+      PreparedStatement sentenca = c.conector.prepareStatement(sql);
+      sentenca.setInt(1, idEntrega);
+      ResultSet rs = sentenca.executeQuery();
+
+      while(rs.next()){
+        PedidosModel pedido = new PedidosModel();
+        pedido.setIdPedido(rs.getInt("id_pedido"));
+        pedido.setIdCliente(rs.getInt("id_cliente"));
+        pedido.setIdEntrega(rs.getInt("id_entrega"));
+        pedido.setStatus(rs.getString("status"));
+        pedido.setValorTotal(rs.getDouble("valor_total"));
+        pedido.setCreatedAt(rs.getTimestamp("created_at"));
+        pedido.setUpdatedAt(rs.getTimestamp("updated_at"));
+        lista.add(pedido);
+      }
+    } catch(SQLException e){
+      System.out.println("Erro ao listar por pedido: " + e.getMessage());
+    }
+    c.desconectar();
+    return lista;
+  }
+
+  @Override
+  public ArrayList<PedidosModel> listarPorCliente(int idCliente) throws RemoteException {
+    ArrayList<PedidosModel> lista = new ArrayList<>();
+    Conexao c = new Conexao();
+    c.conectar();
+    String sql = "SELECT * FROM pedidos WHERE id_cliente = ?";
+    try{
+      PreparedStatement sentenca = c.conector.prepareStatement(sql);
+      sentenca.setInt(1, idCliente);
+      ResultSet rs = sentenca.executeQuery();
+
+      while(rs.next()){
+        PedidosModel pedido = new PedidosModel();
+        pedido.setIdPedido(rs.getInt("id_pedido"));
+        pedido.setIdCliente(rs.getInt("id_cliente"));
+        pedido.setIdEntrega(rs.getInt("id_entrega"));
+        pedido.setStatus(rs.getString("status"));
+        pedido.setValorTotal(rs.getDouble("valor_total"));
+        pedido.setCreatedAt(rs.getTimestamp("created_at"));
+        pedido.setUpdatedAt(rs.getTimestamp("updated_at"));
+        lista.add(pedido);
+      }
+    } catch(SQLException e){
+      System.out.println("Erro ao listar por cliente: " + e.getMessage());
     }
     c.desconectar();
     return lista;

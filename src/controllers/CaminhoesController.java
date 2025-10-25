@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import model.CaminhoesModel;
@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import util.Conexao;
+import interfaces.InterfaceCaminhoes;
 
 public class CaminhoesController extends UnicastRemoteObject implements InterfaceCaminhoes {
-  CaminhoesController() throws RemoteException {}
+  public CaminhoesController() throws RemoteException {}
 
   @Override
   public boolean inserir(CaminhoesModel caminhao) throws RemoteException {

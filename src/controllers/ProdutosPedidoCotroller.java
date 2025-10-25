@@ -1,15 +1,19 @@
-package controller;
+package controllers;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import interfaces.InterfaceProdutosPedido;
+
+
 import java.sql.ResultSet;
 import util.Conexao;
 import model.ProdutosPedidoModel;
 
-public class ProdutosPedido extends UnicastRemoteObject implements InterfaceProdutosPedido{
-  public ProdutosPedido()throws RemoteException{}
+public class ProdutosPedidoCotroller extends UnicastRemoteObject implements InterfaceProdutosPedido{
+  public ProdutosPedidoCotroller()throws RemoteException{}
 
   @Override
   public boolean inserir(ProdutosPedidoModel produtoPedido) throws RemoteException {

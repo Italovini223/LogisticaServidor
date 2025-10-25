@@ -1,10 +1,13 @@
-package controller;
+package controllers;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import model.MotoristasModel;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import interfaces.InterfaceMotoristas;
+
 import java.sql.ResultSet;
 import util.Conexao;
 

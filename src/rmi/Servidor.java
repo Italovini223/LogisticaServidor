@@ -3,18 +3,45 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
-/**
- *
- * @author Cris
- */
+
+import interfaces.InterfaceCaminhoes;
+import interfaces.InterfaceProdutos;
+import interfaces.InterfaceProdutosPedido;
+import interfaces.InterfaceClientes;
+import interfaces.InterfacePedidos;
+import interfaces.InterfaceEntregas;
+import interfaces.InterfaceMotoristas;
+
+import controllers.ProdutosController;
+import controllers.ProdutosPedidoCotroller;
+import controllers.ClientesController;
+import controllers.PedidosController;
+import controllers.EntregasController;
+import controllers.MotoristasController;
+import controllers.CaminhoesController;
+
 public class Servidor {
     public static void main(String[] args) {
         try{
             Registry conexao = LocateRegistry.createRegistry(1100);
             System.out.println("Servidor Iniciado!");
-            Interface servico = new InterfaceImplementacao();
-            System.out.println("Serviço pronto!");
-            conexao.bind("chave",servico);
+
+            InterfaceProdutos servicoProdutos = new ProdutosController();
+            InterfaceProdutosPedido servicoProdutosPedido = new ProdutosPedidoCotroller();
+            InterfaceClientes servicoClientes = new ClientesController();
+            InterfacePedidos servicoPedidos = new PedidosController();
+            InterfaceEntregas servicoEntregas = new EntregasController();
+            InterfaceMotoristas servicoMotoristas = new MotoristasController();
+            InterfaceCaminhoes servicoCaminhoes = new CaminhoesController();
+            
+            conexao.bind("produtos", servicoProdutos);
+            conexao.bind("produtosPedido", servicoProdutosPedido);
+            conexao.bind("clientes", servicoClientes);
+            conexao.bind("pedidos", servicoPedidos);
+            conexao.bind("entregas", servicoEntregas);
+            conexao.bind("motoristas", servicoMotoristas);
+            conexao.bind("caminhoes", servicoCaminhoes);
+            
         }catch(RemoteException e){
             System.out.println("Erro na criação do serviço: "+ e.getMessage());
         }catch(AlreadyBoundException e){
