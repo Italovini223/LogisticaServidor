@@ -125,7 +125,7 @@ public class ClientesController extends UnicastRemoteObject implements Interface
         cliente.setIdCliente(result.getInt("id"));
         cliente.setNome(result.getString("nome"));
         cliente.setCpf_cnpj(result.getString("cpf_cnpj"));
-        cliente.setEndereco(result.getString("string"));
+        cliente.setEndereco(result.getString("endereco"));
         cliente.setStatus(result.getString("status"));
         cliente.setCreatedAt(result.getTimestamp("created_at"));
         cliente.setUpdatedAt(result.getTimestamp("updated_at"));
