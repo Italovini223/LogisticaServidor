@@ -13,16 +13,23 @@ import interfaces.InterfacePedidos;
 public class PedidosController extends UnicastRemoteObject implements InterfacePedidos {
   public PedidosController() throws RemoteException {}
 
-  @Override
+    @Override
   public boolean inserir(PedidosModel pedido) throws RemoteException {
     boolean retorno = false;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "INSET INTO pedidos(id_clente, id_entrega, status, valor_total, created_at, updated_at) VALUES (?,?,?,?,?,?)";
+    String sql = "INSERT INTO pedidos(id_cliente, id_entrega, status, valor_total, created_at, updated_at) VALUES (?,?,?,?,?,?)";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, pedido.getIdCliente());
-      sentenca.setInt(2, pedido.getIdEntrega());
+      
+      // Verifica se idEntrega é nulo
+      if(pedido.getIdEntrega() == null) {
+        sentenca.setNull(2, java.sql.Types.INTEGER);
+      } else {
+        sentenca.setInt(2, pedido.getIdEntrega());
+      }
+      
       sentenca.setString(3, pedido.getStatus());
       sentenca.setDouble(4, pedido.getValorTotal());
       sentenca.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
@@ -47,7 +54,14 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, pedido.getIdCliente());
-      sentenca.setInt(2, pedido.getIdEntrega());
+      
+      // Verifica se idEntrega é nulo
+      if(pedido.getIdEntrega() == null) {
+        sentenca.setNull(2, java.sql.Types.INTEGER);
+      } else {
+        sentenca.setInt(2, pedido.getIdEntrega());
+      }
+      
       sentenca.setString(3, pedido.getStatus());
       sentenca.setDouble(4, pedido.getValorTotal());
       sentenca.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));

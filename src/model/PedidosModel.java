@@ -4,7 +4,7 @@ import java.io.Serializable;
 public class PedidosModel implements Serializable {
   private int idPedido;
   private int idCliente;
-  private int idEntrega;
+  private Integer idEntrega;
   private String status;
   private double valorTotal;
   private java.sql.Timestamp createdAt;
@@ -24,10 +24,10 @@ public class PedidosModel implements Serializable {
     this.idCliente = idCliente;
   }
 
-  public int getIdEntrega() {
+  public Integer getIdEntrega() {
     return idEntrega;
   }
-  public void setIdEntrega(int idEntrega) {
+  public void setIdEntrega(Integer idEntrega) {
     this.idEntrega = idEntrega;
   }
 
