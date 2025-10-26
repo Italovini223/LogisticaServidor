@@ -50,7 +50,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
     boolean retorno = false;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "UPDATE pedidos SET id_cliente = ?, id_entrega = ?, status = ?, valor_total = ?, updated_at = ? WHERE id_pedido = ?";
+    String sql = "UPDATE pedidos SET id_cliente = ?, id_entrega = ?, status = ?, valor_total = ?, updated_at = ? WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, pedido.getIdCliente());
@@ -82,7 +82,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
     boolean retorno = false;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "DELETE FROM pedidos WHERE id_pedido = ?";
+    String sql = "DELETE FROM pedidos WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, pedido.getIdPedido());
@@ -102,7 +102,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
     PedidosModel retorno = null;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "SELECT * FROM pedidos WHERE id_pedido = ?";
+    String sql = "SELECT * FROM pedidos WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, pedido.getIdPedido());
@@ -110,7 +110,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
 
       if(rs.next()){
         retorno = new PedidosModel();
-        retorno.setIdPedido(rs.getInt("id_pedido"));
+        retorno.setIdPedido(rs.getInt(""));
         retorno.setIdCliente(rs.getInt("id_cliente"));
         retorno.setIdEntrega(rs.getInt("id_entrega"));
         retorno.setStatus(rs.getString("status"));
@@ -137,7 +137,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
 
       while(rs.next()){
         PedidosModel pedido = new PedidosModel();
-        pedido.setIdPedido(rs.getInt("id_pedido"));
+        pedido.setIdPedido(rs.getInt("id"));
         pedido.setIdCliente(rs.getInt("id_cliente"));
         pedido.setIdEntrega(rs.getInt("id_entrega"));
         pedido.setStatus(rs.getString("status"));
@@ -166,7 +166,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
 
       while(rs.next()){
         PedidosModel pedido = new PedidosModel();
-        pedido.setIdPedido(rs.getInt("id_pedido"));
+        pedido.setIdPedido(rs.getInt("id"));
         pedido.setIdCliente(rs.getInt("id_cliente"));
         pedido.setIdEntrega(rs.getInt("id_entrega"));
         pedido.setStatus(rs.getString("status"));
@@ -195,7 +195,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
 
       while(rs.next()){
         PedidosModel pedido = new PedidosModel();
-        pedido.setIdPedido(rs.getInt("id_pedido"));
+        pedido.setIdPedido(rs.getInt("id"));
         pedido.setIdCliente(rs.getInt("id_cliente"));
         pedido.setIdEntrega(rs.getInt("id_entrega"));
         pedido.setStatus(rs.getString("status"));
