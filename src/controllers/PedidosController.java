@@ -110,7 +110,7 @@ public class PedidosController extends UnicastRemoteObject implements InterfaceP
 
       if(rs.next()){
         retorno = new PedidosModel();
-        retorno.setIdPedido(rs.getInt(""));
+        retorno.setIdPedido(rs.getInt("id"));
         retorno.setIdCliente(rs.getInt("id_cliente"));
         retorno.setIdEntrega(rs.getInt("id_entrega"));
         retorno.setStatus(rs.getString("status"));
