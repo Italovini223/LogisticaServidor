@@ -42,7 +42,7 @@ public class CaminhoesController extends UnicastRemoteObject implements Interfac
     boolean retorno = false;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "UPDATE caminhoes SET placa = ?, modelo = ?, ano = ?, status = ? , updated_at = ? WHERE id_caminhao = ?";
+    String sql = "UPDATE caminhoes SET placa = ?, modelo = ?, ano = ?, status = ? , updated_at = ? WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setString(1, caminhao.getPlaca());
@@ -67,7 +67,7 @@ public class CaminhoesController extends UnicastRemoteObject implements Interfac
     boolean retorno = false;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "DELETE FROM caminhoes WHERE id_caminhao = ?";
+    String sql = "DELETE FROM caminhoes WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, caminhao.getIdCaminhao());
@@ -86,7 +86,7 @@ public class CaminhoesController extends UnicastRemoteObject implements Interfac
   public CaminhoesModel pesquisar(CaminhoesModel caminhao) throws RemoteException {
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "SELECT * FROM caminhoes WHERE id_caminhao = ?";
+    String sql = "SELECT * FROM caminhoes WHERE id = ?";
     CaminhoesModel retorno = null;
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
@@ -95,7 +95,7 @@ public class CaminhoesController extends UnicastRemoteObject implements Interfac
 
       if(rs.next()){
         retorno = new CaminhoesModel();
-        retorno.setIdCaminhao(rs.getInt("id_caminhao"));
+        retorno.setIdCaminhao(rs.getInt("id"));
         retorno.setPlaca(rs.getString("placa"));
         retorno.setModelo(rs.getString("modelo"));
         retorno.setAno(rs.getInt("ano"));
@@ -122,7 +122,7 @@ public class CaminhoesController extends UnicastRemoteObject implements Interfac
       ResultSet result = sentenca.executeQuery();
       while(result.next()){
         CaminhoesModel ca = new CaminhoesModel();
-        ca.setIdCaminhao(result.getInt("id_caminhao"));
+        ca.setIdCaminhao(result.getInt("id"));
         ca.setPlaca(result.getString("placa"));
         ca.setModelo(result.getString("modelo"));
         ca.setAno(result.getInt("ano"));
@@ -139,3 +139,6 @@ public class CaminhoesController extends UnicastRemoteObject implements Interfac
   }
   
 }
+
+
+
