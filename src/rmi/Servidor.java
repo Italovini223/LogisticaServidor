@@ -23,6 +23,8 @@ import controllers.CaminhoesController;
 public class Servidor {
     public static void main(String[] args) {
         try{
+            System.setProperty("java.rmi.server.hostname", "192.168.1.20");
+
             Registry conexao = LocateRegistry.createRegistry(3333);
             System.out.println("Servidor Iniciado!");
 

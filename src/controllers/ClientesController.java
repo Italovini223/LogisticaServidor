@@ -87,7 +87,7 @@ public class ClientesController extends UnicastRemoteObject implements Interface
     ClientesModel retorno = null;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "SELECT * FROM clentes WHERE id = ?";
+    String sql = "SELECT * FROM clientes WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setInt(1, cliente.getIdCliente());

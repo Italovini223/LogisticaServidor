@@ -44,7 +44,7 @@ public class MotoristasController extends UnicastRemoteObject implements Interfa
     boolean retorno = false;
     Conexao c = new Conexao();
     c.conectar();
-    String sql = "UPDATE motorista SET nome = ?, endereco = ?, numero_carteira = ?, status = ?, updated_at = ? WHERE id = ?";
+    String sql = "UPDATE motoristas SET nome = ?, endereco = ?, numero_carteira = ?, status = ?, updated_at = ? WHERE id = ?";
     try{
       PreparedStatement sentenca = c.conector.prepareStatement(sql);
       sentenca.setString(1, motorista.getNome());
